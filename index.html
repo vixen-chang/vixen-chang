@@ -27,8 +27,12 @@
     color: #306;
 }
 
+#box {
+    text-align: center;
+}
+
 h1 {
-    font-size: 2em;
+    font-size: 1em;
     line-height: 1em;
     margin-block-start: 1rem;
     margin-block-end: 0.5rem;
@@ -44,7 +48,12 @@ object {
 }
 
 header {
-    text-align: center;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 main {
@@ -86,8 +95,8 @@ html {
     </head>
     <body>
         <header>
-            <h1>vixenViewer</h1>
-            <div>
+            <div id="box">
+                <h1>vixenViewer</h1>
                 <button id="file-button">OPEN</button>
                 <input id="file" class="none" type="file" accept="text/html">
             </div>
