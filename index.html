@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="ローカルの単体HTMLを表示します。" />
+        <title>vixen HTML Viewer</title>
+	    <link href="icon.png" rel="icon">
+        <link href="icon.png" rel="apple-touch-icon">
+        <style>
+.none {
+    display: none;
+}
+
+#file-button {
+    background-color: #306;
+    color: #C6F;
+    border-radius: 0.5em;
+    border-style: none;
+    font-size: 2em;
+    padding-inline: 0.5em;
+    margin-block: 0.5rem;
+    cursor: pointer;
+}
+#file-button:active {
+    background-color: #C6F;
+    color: #306;
+}
+
+h1 {
+    font-size: 2em;
+    line-height: 1em;
+    margin-block-start: 1rem;
+    margin-block-end: 0.5rem;
+}
+
+ul {
+    padding-inline-start: 2.5rem;
+}
+
+object {
+    inline-size: 100%;
+    block-size: 100%;
+}
+
+header {
+    text-align: center;
+}
+
+main {
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #000;
+    color: #C6F;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+    font-size: 16pt;
+}
+
+html {
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border-style: none;
+    font-weight: normal;
+    font-family: sans-serif;
+    line-height: 2em;
+    word-spacing: 0;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    outline: none;
+}
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>vixenViewer</h1>
+            <div>
+                <button id="file-button">OPEN</button>
+                <input id="file" class="none" type="file" accept="text/html">
+            </div>
+        </header>
+        <main class="none">
+            <object id="html" data=""></object>
+        </main>
+        <script defer>'use strict';
+
+// 要素の取得
+const elem = {
+    fileButton: document.querySelector('#file-button'),
+    file: document.querySelector('#file'),
+    html: document.querySelector('#html'),
+    header: document.querySelector('header'),
+    main: document.querySelector('main'),
+};
+
+// SELECT HTMLボタン押下時
+elem.fileButton.addEventListener('click', (e) => {
+    elem.file.click();
+});
+
+// ファイル選択キャンセル時
+elem.file.addEventListener('cancel', (e) => {
+});
+
+// ファイル決定時
+elem.file.addEventListener('change', (e) => {
+    if (e.target.files.length !== 1) return;
+    
+    // ファイル読み込み
+    const reader = new FileReader();
+    reader.addEventListener('load', (e) => {
+        elem.html.data = event.currentTarget.result;
+        elem.header.className = 'none';
+        elem.main.className = '';
+    });
+    reader.readAsDataURL(e.target.files[0]);
+});
+        </script>
+    </body>
+</html>
